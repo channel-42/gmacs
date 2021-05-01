@@ -1,72 +1,72 @@
 
 # Table of Contents
 
--   [init-file](#org8ec7601)
--   [About](#org6cbbac0)
--   [Speed up load times](#org080f482)
--   [Package Management](#org15d367e)
-    -   [Adding MELPA](#orgd128f75)
-    -   [Installing use-package](#org3b92918)
--   [Cleanup](#orgd5a74f7)
--   [Icons](#org79dfba2)
--   [Keybindings](#org9b9ee45)
--   [Dashboard](#orgc67d267)
-    -   [Configuring Dashboard](#org340ca0e)
-    -   [Dashboard in Emacsclient](#org2b9c565)
--   [evil-mode](#org1be4b08)
--   [Treemacs](#orgdcf1f89)
--   [Finding Files](#org2bd8450)
--   [Dired](#orgb3a6507)
--   [Fonts](#orgcf9049c)
-    -   [Setting The Font Face](#org42f640f)
-    -   [Ligatures](#org22765b8)
-    -   [Zooming In and Out](#orgad8b58e)
-    -   [Emojis](#org7e78065)
--   [GUI Tweaks](#org66ac39e)
-    -   [Disable Menu, Toolbars and Scrollbars](#orgd3cb22a)
-    -   [Relative Line Numbers](#org1148184)
-    -   [Doom Modeline](#org75e7e16)
--   [Ivy, Counsel and Swiper](#org49797ad)
-    -   [IVY-POSFRAME](#org84cb73f)
--   [Magit](#org69d1edf)
--   [Org Mode](#orgac2450a)
-    -   [Visual fill](#org02a227b)
-    -   [Defining A Few Things](#org6290ff2)
-    -   [Enabling Org Bullets](#orge660bb8)
-    -   [Org Link Abbreviations](#orgc375fb8)
-    -   [Org Todo Keywords](#org640df16)
-    -   [Source Code Block Tag Expansion](#orga198c6c)
-    -   [Source Code Block stuff](#orgf2afbbd)
-    -   [Heading formatting](#org9cb65ea)
-    -   [Automatically Create Table of Contents](#org08cf6d3)
--   [Projectile](#org3affab1)
--   [Scrolling](#orgb29c42f)
--   [PDF-tools](#org6b9cf0b)
--   [Shells](#orgeca6bf8)
-    -   [Eshell](#org194a741)
-    -   [Vterm](#org2e45011)
--   [Theme](#org962d9c5)
--   [Which key](#org5ee897d)
--   [Brackets](#org022b1a3)
--   [LSP](#org8366e35)
-    -   [LSP-Mode](#org26f643b)
-    -   [yasnippet](#org9a747b5)
-    -   [company-mode](#org369ba1e)
-    -   [visual](#org3e5343a)
-    -   [commenting](#orgd07a997)
--   [DAP](#org3013765)
--   [Tree-sitter](#orgbde4a95)
--   [Elfeed](#orgf42d335)
--   [tab-bar](#org7aa2785)
--   [Spell Checking](#org37c3d5f)
--   [mu4e](#org5ee1098)
--   [texfrag-mode](#org43421d2)
--   [LaTeX](#org0d83552)
--   [Reset gc to keep emacs snappy](#org08dda96)
+-   [init-file](#orgb0fc613)
+-   [About](#org602734e)
+-   [Speed up load times](#orgcdef1da)
+-   [Package Management](#org4c040f2)
+    -   [Adding MELPA](#org31b34e7)
+    -   [Installing use-package](#orgc21aeb2)
+-   [Cleanup](#org711925b)
+-   [Icons](#orgf296bbe)
+-   [Keybindings](#orgc1da775)
+-   [Dashboard](#orga636389)
+    -   [Configuring Dashboard](#orge37a113)
+    -   [Dashboard in Emacsclient](#orgd0df8c4)
+-   [evil-mode](#org08fa94c)
+-   [Treemacs](#org77b77f2)
+-   [Finding Files](#orgc307893)
+-   [Dired](#org76c6302)
+-   [Fonts](#orgf7d3a39)
+    -   [Setting The Font Face](#org559782f)
+    -   [Ligatures](#org73433b3)
+    -   [Zooming In and Out](#orgf2714ca)
+    -   [Emojis](#org955ab03)
+-   [GUI Tweaks](#org91e5ca7)
+    -   [Disable Menu, Toolbars and Scrollbars](#org7a4cce1)
+    -   [Relative Line Numbers](#org758342f)
+    -   [Doom Modeline](#org4c83543)
+-   [Ivy, Counsel and Swiper](#org22e6f4a)
+    -   [IVY-POSFRAME](#org427ea8d)
+-   [Magit](#org78d48c6)
+-   [Org Mode](#orga7b6da0)
+    -   [Visual fill](#org4f2ade1)
+    -   [Defining A Few Things](#orgf96ea92)
+    -   [Enabling Org Bullets](#org40b7fa0)
+    -   [Org Link Abbreviations](#orgb924275)
+    -   [Org Todo Keywords](#org82f925f)
+    -   [Source Code Block Tag Expansion](#org92a9225)
+    -   [Source Code Block stuff](#orgd1df3db)
+    -   [Heading formatting](#org3951079)
+    -   [Automatically Create Table of Contents](#org43f0c12)
+-   [Projectile](#org44cf654)
+-   [Scrolling](#orgbd7c1a4)
+-   [PDF-tools](#orga54563e)
+-   [Shells](#org2089b4a)
+    -   [Eshell](#orgdbd3fdd)
+    -   [Vterm](#org9f8b22c)
+-   [Theme](#org0c41e5b)
+-   [Which key](#orgc36905b)
+-   [Brackets](#orga575569)
+-   [LSP](#org2486194)
+    -   [LSP-Mode](#orgc9215f5)
+    -   [yasnippet](#org0960da4)
+    -   [company-mode](#org39dd722)
+    -   [visual](#org392f9ea)
+    -   [commenting](#org5d575e4)
+-   [DAP](#orgd904ee0)
+-   [Tree-sitter](#org400c7bf)
+-   [Elfeed](#org36e3185)
+-   [tab-bar](#orgc16ffec)
+-   [Spell Checking](#org29c9a30)
+-   [mu4e](#orgf9912d2)
+-   [texfrag-mode](#org16fd867)
+-   [LaTeX](#org62845f7)
+-   [Reset gc to keep emacs snappy](#org01d8164)
 
 
 
-<a id="org8ec7601"></a>
+<a id="orgb0fc613"></a>
 
 # init-file
 
@@ -80,7 +80,7 @@ To be able to configure emacs in org-mode, put this code into init.el
 </p>
 
 
-<a id="org6cbbac0"></a>
+<a id="org602734e"></a>
 
 # About
 
@@ -101,7 +101,7 @@ It also adds lsp-mode, tree-sitter, ligatures, dap-mode and some other features 
 -   read rss (sometimes)
 
 
-<a id="org080f482"></a>
+<a id="orgcdef1da"></a>
 
 # Speed up load times
 
@@ -109,12 +109,12 @@ It also adds lsp-mode, tree-sitter, ligatures, dap-mode and some other features 
     (setq gc-cons-threshold (* 50 1000 1000))
 
 
-<a id="org15d367e"></a>
+<a id="org4c040f2"></a>
 
 # Package Management
 
 
-<a id="orgd128f75"></a>
+<a id="org31b34e7"></a>
 
 ## Adding MELPA
 
@@ -128,7 +128,7 @@ Make sure that melpa is added to the repo list
     (package-initialize)
 
 
-<a id="org3b92918"></a>
+<a id="orgc21aeb2"></a>
 
 ## Installing use-package
 
@@ -140,7 +140,7 @@ use-package makes configuring packages easier
     ;;(setq use-package-always-ensure t)
 
 
-<a id="orgd5a74f7"></a>
+<a id="org711925b"></a>
 
 # Cleanup
 
@@ -156,7 +156,7 @@ Keep Emacs from littering
           `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
 
 
-<a id="org79dfba2"></a>
+<a id="orgf296bbe"></a>
 
 # Icons
 
@@ -165,7 +165,7 @@ Add some nice icons to emacs. Needed for doom-modeline and neotree
     (use-package all-the-icons)
 
 
-<a id="org9b9ee45"></a>
+<a id="orgc1da775"></a>
 
 # Keybindings
 
@@ -274,14 +274,14 @@ Make binding keys easy, especially when using evil-mode, e.g. mapping for differ
            "w w"   '(evil-window-next :which-key "Goto next window"))
 
 
-<a id="orgc67d267"></a>
+<a id="orga636389"></a>
 
 # Dashboard
 
 Display a nice dashboard when emacs / emacsclient starts. Fast entry point to recent files, agenda, bookmarks
 
 
-<a id="org340ca0e"></a>
+<a id="orge37a113"></a>
 
 ## Configuring Dashboard
 
@@ -320,7 +320,7 @@ Display a nice dashboard when emacs / emacsclient starts. Fast entry point to re
     )
 
 
-<a id="org2b9c565"></a>
+<a id="orgd0df8c4"></a>
 
 ## Dashboard in Emacsclient
 
@@ -329,7 +329,7 @@ This setting ensures that emacsclient always opens on **dashboard** rather than 
     (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 
-<a id="org1be4b08"></a>
+<a id="org08fa94c"></a>
 
 # evil-mode
 
@@ -348,7 +348,7 @@ Using evil mode since I am/was a vim/nvim user
       (evil-collection-init))
 
 
-<a id="orgdcf1f89"></a>
+<a id="org77b77f2"></a>
 
 # Treemacs
 
@@ -362,7 +362,7 @@ For general file browsing I just use dired
     :after lsp)
 
 
-<a id="org2bd8450"></a>
+<a id="orgc307893"></a>
 
 # Finding Files
 
@@ -377,7 +377,7 @@ Used for searching recently opened files
     (add-to-list 'recentf-exclude no-littering-etc-directory))
 
 
-<a id="orgb3a6507"></a>
+<a id="org76c6302"></a>
 
 # Dired
 
@@ -404,14 +404,14 @@ Dired is the file manager within Emacs.
                                   ("mp4" . "mpv")))
 
 
-<a id="orgcf9049c"></a>
+<a id="orgf7d3a39"></a>
 
 # Fonts
 
 All font settings
 
 
-<a id="org42f640f"></a>
+<a id="org559782f"></a>
 
 ## Setting The Font Face
 
@@ -457,7 +457,7 @@ All font settings
     (setq global-prettify-symbols-mode t)
 
 
-<a id="org22765b8"></a>
+<a id="org73433b3"></a>
 
 ## Ligatures
 
@@ -467,7 +467,7 @@ Adding nice looking code ligatures **(only for fira code)**
       :hook prog-mode)
 
 
-<a id="orgad8b58e"></a>
+<a id="orgf2714ca"></a>
 
 ## Zooming In and Out
 
@@ -480,11 +480,11 @@ Settings for zooming (text-size)
     (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 
 
-<a id="org7e78065"></a>
+<a id="org955ab03"></a>
 
 ## Emojis
 
-Add emoji support as well as nice emoji menu. Uses Apple's emoji font, which is configured [here](#org42f640f)
+Add emoji support as well as nice emoji menu. Uses Apple's emoji font, which is configured [here](#org559782f)
 
     (use-package emojify
     :hook (after-init . global-emojify-mode)
@@ -493,14 +493,14 @@ Add emoji support as well as nice emoji menu. Uses Apple's emoji font, which is 
     (setq emojify-emoji-styles '(unicode)))
 
 
-<a id="org66ac39e"></a>
+<a id="org91e5ca7"></a>
 
 # GUI Tweaks
 
 Disable some GUI bloat and configure line numbers and statusbar
 
 
-<a id="orgd3cb22a"></a>
+<a id="org7a4cce1"></a>
 
 ## Disable Menu, Toolbars and Scrollbars
 
@@ -509,7 +509,7 @@ Disable some GUI bloat and configure line numbers and statusbar
     (scroll-bar-mode -1)
 
 
-<a id="org1148184"></a>
+<a id="org758342f"></a>
 
 ## Relative Line Numbers
 
@@ -522,7 +522,7 @@ Disable some GUI bloat and configure line numbers and statusbar
     (setq truncate-lines t)
 
 
-<a id="org75e7e16"></a>
+<a id="org4c83543"></a>
 
 ## Doom Modeline
 
@@ -532,7 +532,7 @@ Disable some GUI bloat and configure line numbers and statusbar
     (setq doom-modeline-icon 1)
 
 
-<a id="org49797ad"></a>
+<a id="org22e6f4a"></a>
 
 # Ivy, Counsel and Swiper
 
@@ -566,7 +566,7 @@ Ivy is a generic completion mechanism for Emacs.
       :bind (("C-s" . swiper)))
 
 
-<a id="org84cb73f"></a>
+<a id="org427ea8d"></a>
 
 ## IVY-POSFRAME
 
@@ -609,7 +609,7 @@ Available functions (positions) for 'ivy-posframe-display-functions-alist'
       (ivy-posframe-mode 1)) ; 1 enables posframe-mode, 0 disables it.
 
 
-<a id="org69d1edf"></a>
+<a id="org78d48c6"></a>
 
 # Magit
 
@@ -623,14 +623,14 @@ Used for managing git projects
       :config (magit-todos-mode))
 
 
-<a id="orgac2450a"></a>
+<a id="orga7b6da0"></a>
 
 # Org Mode
 
 **THE** mode I use emacs for and the main reason I originally switched to it
 
 
-<a id="org02a227b"></a>
+<a id="org4f2ade1"></a>
 
 ## Visual fill
 
@@ -648,7 +648,7 @@ Add margins on both sides of the buffer (useful for wide monitors)
     (setq-default global-visual-line-mode t)
 
 
-<a id="org6290ff2"></a>
+<a id="orgf96ea92"></a>
 
 ## Defining A Few Things
 
@@ -667,7 +667,7 @@ Add margins on both sides of the buffer (useful for wide monitors)
           org-hide-emphasis-markers t)
 
 
-<a id="orge660bb8"></a>
+<a id="org40b7fa0"></a>
 
 ## Enabling Org Bullets
 
@@ -677,7 +677,7 @@ Org-bullets provides glyph-style bullets instead of asterisks.
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 
-<a id="orgc375fb8"></a>
+<a id="orgb924275"></a>
 
 ## Org Link Abbreviations
 
@@ -692,7 +692,7 @@ This allows for the use of abbreviations that will get expanded out into a lengt
               ("wiki" . "https://en.wikipedia.org/wiki/")))
 
 
-<a id="org640df16"></a>
+<a id="org82f925f"></a>
 
 ## Org Todo Keywords
 
@@ -718,7 +718,7 @@ Some custom settings for agenda items.
                           :foreground "#657b83")
 
 
-<a id="orga198c6c"></a>
+<a id="org92a9225"></a>
 
 ## Source Code Block Tag Expansion
 
@@ -806,7 +806,7 @@ Org-tempo org-block expansion. Includes:
       :ensure nil) 
 
 
-<a id="orgf2afbbd"></a>
+<a id="orgd1df3db"></a>
 
 ## Source Code Block stuff
 
@@ -828,7 +828,7 @@ Add syntax highlighting, preserve indentation and enable C, C++ and Python
      '((C . t)))
 
 
-<a id="org9cb65ea"></a>
+<a id="org3951079"></a>
 
 ## Heading formatting
 
@@ -873,7 +873,7 @@ Make headings different sizes
     (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
 
 
-<a id="org08cf6d3"></a>
+<a id="org43f0c12"></a>
 
 ## Automatically Create Table of Contents
 
@@ -884,7 +884,7 @@ Use ':TOC:' to generate it in org documents
       :init (add-hook 'org-mode-hook 'toc-org-enable))
 
 
-<a id="org3affab1"></a>
+<a id="org44cf654"></a>
 
 # Projectile
 
@@ -895,7 +895,7 @@ For project management.
       (projectile-global-mode 1))
 
 
-<a id="orgb29c42f"></a>
+<a id="orgbd7c1a4"></a>
 
 # Scrolling
 
@@ -907,7 +907,7 @@ Remove half page jumps and add acceleratted scrolling.
     (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
 
-<a id="org6b9cf0b"></a>
+<a id="orga54563e"></a>
 
 # PDF-tools
 
@@ -919,12 +919,12 @@ Improve PDF viewing in emacs. Useful for writing LaTeX docs or taking lecture no
     (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode))
 
 
-<a id="orgeca6bf8"></a>
+<a id="org2089b4a"></a>
 
 # Shells
 
 
-<a id="org194a741"></a>
+<a id="orgdbd3fdd"></a>
 
 ## Eshell
 
@@ -948,7 +948,7 @@ Eshell is an Emacs 'shell' that is written in Elisp.
           eshell-visual-commands'("bash" "htop" "ssh" "top" "zsh"))
 
 
-<a id="org2e45011"></a>
+<a id="org9f8b22c"></a>
 
 ## Vterm
 
@@ -977,7 +977,7 @@ Adding vterm with custom function so that it opens in a new buffer at the bottom
                     (window-height . 0.3))))
 
 
-<a id="org962d9c5"></a>
+<a id="org0c41e5b"></a>
 
 # Theme
 
@@ -996,7 +996,7 @@ Using the doom-themes since they integrate well with other packages (treemacs, m
     (add-to-list 'default-frame-alist '(alpha . (95 . 90)))
 
 
-<a id="org5ee897d"></a>
+<a id="orgc36905b"></a>
 
 # Which key
 
@@ -1007,7 +1007,7 @@ Been using it in nvim, so it had to be included here
     (which-key-mode)
 
 
-<a id="org022b1a3"></a>
+<a id="orga575569"></a>
 
 # Brackets
 
@@ -1016,14 +1016,14 @@ Enabling autoclosing brackets
     (electric-pair-mode)
 
 
-<a id="org8366e35"></a>
+<a id="org2486194"></a>
 
 # LSP
 
 Make emacs a very powerful IDE
 
 
-<a id="org26f643b"></a>
+<a id="orgc9215f5"></a>
 
 ## LSP-Mode
 
@@ -1070,7 +1070,7 @@ Configure lsp-mode for python and c/c++
       (setq lsp-ui-peek-always-show t))
 
 
-<a id="org9a747b5"></a>
+<a id="org0960da4"></a>
 
 ## yasnippet
 
@@ -1084,7 +1084,7 @@ Add useful snippets to speed up coding
     (use-package yasnippet-snippets)
 
 
-<a id="org369ba1e"></a>
+<a id="org39dd722"></a>
 
 ## company-mode
 
@@ -1115,7 +1115,7 @@ Enhace the default autocompletion with company-mode (added support for yasnippet
       :hook (company-mode . company-box-mode))
 
 
-<a id="org3e5343a"></a>
+<a id="org392f9ea"></a>
 
 ## visual
 
@@ -1130,7 +1130,7 @@ Enhace the default autocompletion with company-mode (added support for yasnippet
       :hook (prog-mode . rainbow-delimiters-mode))
 
 
-<a id="orgd07a997"></a>
+<a id="org5d575e4"></a>
 
 ## commenting
 
@@ -1138,7 +1138,7 @@ Enhace the default autocompletion with company-mode (added support for yasnippet
     (use-package evil-nerd-commenter)
 
 
-<a id="org3013765"></a>
+<a id="orgd904ee0"></a>
 
 # DAP
 
@@ -1151,7 +1151,7 @@ Add debugging functionality. Currently only configured for c/c++
     (dap-gdb-lldb-setup))
 
 
-<a id="orgbde4a95"></a>
+<a id="org400c7bf"></a>
 
 # Tree-sitter
 
@@ -1167,7 +1167,7 @@ Enhanced syntax highlighting in prog-mode. Clashes with code blocks sometimes (b
     :inherit font-lock-type-face)))))
 
 
-<a id="orgf42d335"></a>
+<a id="org36e3185"></a>
 
 # Elfeed
 
@@ -1205,7 +1205,7 @@ A RSS reader for emacs
       (kbd "K") 'elfeed-goodies/split-show-prev)
 
 
-<a id="org7aa2785"></a>
+<a id="orgc16ffec"></a>
 
 # tab-bar
 
@@ -1232,7 +1232,7 @@ Adding a simple tab-bar (comes bundled with emacs).
     :foreground "#b3bec1")))))
 
 
-<a id="org37c3d5f"></a>
+<a id="org29c9a30"></a>
 
 # Spell Checking
 
@@ -1265,7 +1265,7 @@ Spell checking with ispell and hunspell. Requires hunspell to be installed. Comp
     ;)
 
 
-<a id="org5ee1098"></a>
+<a id="orgf9912d2"></a>
 
 # mu4e
 
@@ -1276,6 +1276,9 @@ Manage mail comortably in emacs. Includes:
 -   org to html conversion
 -   org capture templates (useful if you use org-agenda)
 
+All this makes integration into the general *emacs workflow* very convinient
+
+    
     ;; needed for encrypted passwords
     (use-package epa-file)
     (epa-file-enable)
@@ -1343,7 +1346,7 @@ Manage mail comortably in emacs. Includes:
     (load "~/.emacs.d/mail.el")
     ;; file contains list of mue4e-contexts, this allows for multiple accounts
     ;; looks like this
-    ;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;
     ;; (setq mu4e-contexts
     ;;       (list
     ;;        ;; first account
@@ -1377,7 +1380,7 @@ Manage mail comortably in emacs. Includes:
     ;; 
     ;;  
     ;; ))
-    ;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;
     
     ;; This is set to 't' to avoid mail syncing issues when using mbsync
     (setq mu4e-change-filenames-when-moving t)
@@ -1387,7 +1390,7 @@ Manage mail comortably in emacs. Includes:
     )
 
 
-<a id="org43421d2"></a>
+<a id="org16fd867"></a>
 
 # texfrag-mode
 
@@ -1400,7 +1403,7 @@ Display inline Latex code blocks in org-mode
           texfrag-scale 1.25))
 
 
-<a id="org0d83552"></a>
+<a id="org62845f7"></a>
 
 # LaTeX
 
@@ -1432,7 +1435,7 @@ Some stuff seems to be a bit borked, probably config related
     (add-hook 'pdf-view-mode-hook ( lambda() (company-mode -1)))
 
 
-<a id="org08dda96"></a>
+<a id="org01d8164"></a>
 
 # Reset gc to keep emacs snappy
 

@@ -1066,7 +1066,10 @@ Manage mail comortably in emacs. Includes:
 - org to html conversion
 - org capture templates (useful if you use org-agenda)
 
+All this makes integration into the general /emacs workflow/ very convinient
+ 
 #+begin_src emacs-lisp
+
 ;; needed for encrypted passwords
 (use-package epa-file)
 (epa-file-enable)
@@ -1134,7 +1137,7 @@ Manage mail comortably in emacs. Includes:
 (load "~/.emacs.d/mail.el")
 ;; file contains list of mue4e-contexts, this allows for multiple accounts
 ;; looks like this
-;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; (setq mu4e-contexts
 ;;       (list
 ;;        ;; first account
@@ -1168,7 +1171,7 @@ Manage mail comortably in emacs. Includes:
 ;; 
 ;;  
 ;; ))
-;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 
 ;; This is set to 't' to avoid mail syncing issues when using mbsync
 (setq mu4e-change-filenames-when-moving t)
@@ -1176,6 +1179,7 @@ Manage mail comortably in emacs. Includes:
 (setq mu4e-update-interval (* 10 60))
 (setq mu4e-get-mail-command "mbsync -a -c ~/.config/mbsync/mbsyncrc")
 )
+
 #+end_src
 
 #+RESULTS:
