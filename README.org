@@ -1,11 +1,17 @@
-#+TITLE: channel-42s GNU Emacs Config
 #+AUTHOR: channel-42
 #+STARTUP: overview 
 #+EXPORT_FILE_NAME: ~/Documents/emacs_config.html
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 #+OPTIONS: num:nil ^:{}
 
+#+HTML:<div align=center><a href="https://github.com/channel-42/gmacs"><img alt="gmacs Logo" width="240" height="240" src="https://github.com/channel-42/gmacs/blob/master/lmbd_macs.png"></a>
+
+* gmacs
+
+#+HTML:</div>
+
 * Table of Contents :TOC:noexport:
+- [[#gmacs][gmacs]]
 - [[#init-file][init-file]]
 - [[#about][About]]
 - [[#speed-up-load-times][Speed up load times]]
@@ -73,12 +79,12 @@
 
 * init-file
 To be able to configure emacs in org-mode, put this code into init.el
-#+begin_verse
+#+begin_example
 (org-babel-load-file
  (expand-file-name
   "README.org"
   user-emacs-directory))
-#+end_verse
+#+end_example
 
 * About
 This is my GNU Emacs config, adopted from [[https://gitlab.com/dwt1/dotfiles/-/blob/master/.emacs.d.gnu/config.org][DT's emacs config]]. It is oriented towards efficient note-taking with org-mode and general productivity.
@@ -531,9 +537,9 @@ Doom Modeline is a minimal yet functional statusbar.
 Additionally I use counsel as a system-wide app-laucher. All this is acomplished with the following function taken from [[https://www.reddit.com/r/emacs/comments/s7pei3/using_emacs_as_your_app_launcher_crosspost_from/][this reddit post]]. To use the launcher, call the function through emacsclient using your hotkey-daemon of choice.
 
 The command is:
-#+begin_verse
+#+begin_example
 emacsclient -a "" -n -e "(call-interactively 'emacs-run-launcher)" &> /dev/null
-#+end_verse
+#+end_example
 
 #+begin_src emacs-lisp
 ;; used as systems main program launcher
