@@ -363,15 +363,29 @@ Dired is the default file-manager within Emacs. Here we add icons as well as ext
 (use-package all-the-icons-dired)
 (use-package dired-open)
 (use-package peep-dired)
+
 (setq peep-dired-cleanup-on-disable t)
-  (with-eval-after-load 'dired
-    (define-key dired-mode-map (kbd "M-p") 'peep-dired)
-    (evil-define-key'(normal visual) dired-mode-map (kbd "h") 'dired-up-directory)
-    (evil-define-key'(normal visual) dired-mode-map (kbd "l") 'dired-open-file)) ; use dired-find-file instead if not using dired-open package
-    (evil-define-key'(normal visual) dired-mode-map (kbd "j") 'peep-dired-next-file)
-    (evil-define-key'(normal visual) dired-mode-map (kbd "k") 'peep-dired-prev-file)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
+(setq dired-listing-switches
+        "-AGFhlv --group-directories-first --time-style=long-iso")
+;; dired and peep-dired bindings
+(evil-define-key '(normal visual) dired-mode-map (kbd "P") 'peep-dired
+                                                 (kbd "h") 'dired-up-directory
+                                                 (kbd "l") 'dired-open-file)
+
+(evil-define-key '(normal visual) peep-dired-mode-map (kbd "<SPC>") 'peep-dired-scroll-page-down
+                                             (kbd "C-<SPC>") 'peep-dired-scroll-page-up
+                                             (kbd "<backspace>") 'peep-dired-scroll-page-up
+                                             (kbd "j") 'peep-dired-next-file
+                                             (kbd "k") 'peep-dired-prev-file)
+(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+
 ;; Get file icons in dired
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+;; start up minimal
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
+(add-hook 'dired-mode-hook #'hl-line-mode)
 ;; With dired-open plugin, you can launch external programs for certain extensions
 ;; For example, I set all .png files to open in 'sxiv' and all .mp4 files to open in 'mpv'
 (setq dired-open-extensions '(("gif" . "sxiv")
@@ -379,6 +393,12 @@ Dired is the default file-manager within Emacs. Here we add icons as well as ext
                               ("png" . "sxiv")
                               ("mkv" . "mpv")
                               ("mp4" . "mpv")))
+(use-package dired-subtree
+:after dired)
+(setq dired-subtree-use-backgrounds nil)
+(let ((map dired-mode-map))
+    (define-key map (kbd "<tab>") #'dired-subtree-toggle)
+    (define-key map (kbd "<backtab>") #'dired-subtree-remove)) ; S-TAB
 #+end_src
 
 * Fonts
