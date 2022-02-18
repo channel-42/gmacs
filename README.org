@@ -567,16 +567,17 @@ emacsclient -a "" -n -e "(call-interactively 'emacs-run-launcher)" &> /dev/null
 "Create and select a frame called emacs-run-launcher which consists only of a minibuffer and has specific dimensions. Run counsel-linux-app on that frame, which is an emacs command that prompts you to select an app and open it in a dmenu like behaviour. Delete the frame after that command has exited"
 (interactive)
 (setq counsel-linux-app-format-function 'counsel-linux-app-format-function-name-pretty)
-(with-selected-frame (make-frame '((name . "emacs-run-launcher")
-(window-system . x)
-(minibuffer . only)
-(width . 120)
-(height . 11)))
-(unwind-protect
-          (counsel-linux-app)
-        (progn
-          (delete-frame)
-          (select-window win)))))
+(let ((win (get-mru-window)))
+   (with-selected-frame (make-frame '((name . "emacs-run-launcher")
+      (window-system . x)
+      (minibuffer . only)
+      (width . 120)
+      (height . 11)))
+      (unwind-protect
+           (counsel-linux-app)
+           (progn
+             (delete-frame)
+             (select-window win))))))
 #+end_src
 
 ** IVY-POSFRAME
