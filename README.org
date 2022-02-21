@@ -234,7 +234,9 @@ General makes binding keys easy, especially when using evil-mode, by allowing mo
        "l f" '(lsp-format-buffer :which-key "format")
        "l d" '(lsp-ui-peek-find-definitions :which-key "peek defs")
        "l r" '(lsp-ui-peek-find-references  :which-key "peek refs")
-       "l s" '(lsp-treemacs-symbols :which-key "peek refs")
+       "l R" '(lsp-rename :which-key "rename symbol")
+       "l s" '(lsp-ivy-workspace-symbol :which-key "search symbol")
+       "l e" '(lsp-treemacs-errors-list :which-key "show errors")
        ;; dap 
        "d"   '(:which-key "dap")
        "d d" '(dap-debug :which-key "debug")
@@ -985,12 +987,14 @@ Configure lsp-mode for python and c/c++
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-keymap-prefix "C-c l"
+        lsp-headerline-breadcrumb-enable nil)
 
 (setq lsp-pyls-server-command '("$HOME/.local/bin/pyls"))
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          ;;(prog-mode . lsp)
          (c-mode . lsp)
+         (c++-mode . lsp)
          (python-mode . lsp)
          (LaTeX-mode . lsp)
          (html-mode . lsp)
@@ -999,7 +1003,15 @@ Configure lsp-mode for python and c/c++
   :commands lsp
 :config
 ;; needed for yasnippets to work
-(setq lsp-completion-provider :none))
+(setq lsp-completion-provider :none
+      read-process-output-max (* 1024 1024) ;; 1mb
+      lsp-idle-delay 0.5
+      lsp-prefer-capf t   ; prefer lsp's company-capf over company-lsp
+      lsp-modeline-diagnostics-enable t
+      lsp-prefer-flymake nil
+      lsp-lens-enable nil
+      lsp-completion-show-detail nil)
+)
 
 ;; tab width and coding style
 (setq c-basic-offset 4
@@ -1016,8 +1028,13 @@ Configure lsp-mode for python and c/c++
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :config
-  (setq lsp-ui-sideline-enable t)
-  (setq lsp-ui-sideline-show-hover nil)
+  (setq lsp-ui-sideline-enable t
+        lsp-ui-sideline-show-symbol nil
+        lsp-ui-sideline-show-hover nil
+        lsp-ui-sideline-show-flycheck t
+        lsp-ui-sideline-show-code-actions nil
+        lsp-ui-sideline-show-diagnostics t)
+
   (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-position 'at-point)
   (setq lsp-ui-doc-show-with-cursor t)
