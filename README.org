@@ -1045,6 +1045,8 @@ Enhace the default autocompletion with company-mode (added support for yasnippet
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
 :config
+(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+(define-key company-active-map (kbd "RET") 'nil)
 ;; Add yasnippet support for all company backends
 ;; https://github.com/syl20bnr/spacemacs/pull/179
 (defvar company-mode/enable-yas t
