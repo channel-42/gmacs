@@ -4,7 +4,7 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 #+OPTIONS: num:nil ^:{}
 
-#+HTML:<div align=center><a href="https://githjb.com/channel-42/gmacs"><img alt="gmacs Logo" width="400" src="https://github.com/channel-42/gmacs/blob/master/gmacs.png"></a>
+#+HTML:<div align=center><a href="https://githjb.com/channel-42/gmacs"><img alt="gmacs Logo" width="100%" src="https://github.com/channel-42/gmacs/blob/master/gmacs.png"></a>
 
 * Gmacs
 
