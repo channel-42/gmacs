@@ -66,6 +66,7 @@
   - [[#lsp-mode][LSP-Mode]]
   - [[#yasnippet][yasnippet]]
   - [[#company-mode][company-mode]]
+  - [[#compilation][compilation]]
   - [[#visual][visual]]
   - [[#commenting][commenting]]
 - [[#dap][DAP]]
@@ -220,6 +221,7 @@ General makes binding keys easy, especially when using evil-mode, by allowing mo
        ;; compilation 
        "c" '(:which-key "compile")
        "c l"     '(texfrag-document :which-key "latex preview")
+       "c c"     '(gmacs/compile :which-key "compile project")
        ;; fix
        "f" '(:which-key "fix")
        "f w"     '(ispell-word :which-key "word")
@@ -232,6 +234,7 @@ General makes binding keys easy, especially when using evil-mode, by allowing mo
        ;; lsp 
        "l"   '(:which-key "lsp")
        "l f" '(lsp-format-buffer :which-key "format")
+       "l g" '(projectile-find-file :which-key "go to proj. file")
        "l d" '(lsp-ui-peek-find-definitions :which-key "peek defs")
        "l r" '(lsp-ui-peek-find-references  :which-key "peek refs")
        "l R" '(lsp-rename :which-key "rename symbol")
@@ -1083,6 +1086,55 @@ Enhace the default autocompletion with company-mode (added support for yasnippet
 
 #+end_src
 
+** compilation
+Ehance compilation experience by providing integration of emacs' ~compile~ (and ~recompile)~ commands with projectile.
+To compile a project press ~SPC c-c~. Then, to recompile, press ~r~ in the ~*compilation*~ buffer. To dismiss said buffer, press ~q~.
+
+The variable ~gmacs/compile-command~ defines the shell command to be executed in the projects root directory provided by the function ~projectile-project-root~.
+#+begin_src emacs-lisp
+(defvar gmacs/compile-command "cmake . && make -j4 && ./bin/*"
+  "Command passed to compile by gmacs/compile")
+#+end_src
+
+These is the code that runs the compilation, fixes shell color codes and adds some helpful bindings.
+#+begin_src emacs-lisp
+;; fix shell color codes and add recompile binding
+(require 'ansi-color)
+(with-eval-after-load 'compile
+  ;; set cursor to follow compilation output
+  (setq compilation-scroll-output t)
+  (evil-define-key '(normal) compilation-mode-map  (kbd "r") 'recompile))
+
+;; apply ansi color to the entire buffer
+(defun colorize-compilation-buffer ()
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region (point-min) (point-max))))
+
+;; apply ansi color to every *compilation* buffer
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+;; main compile function
+(defun gmacs/compile ()
+  "Save and compile the project using the compilation command defined in 
+the variable `gmacs/compile-command', with output going to the buffer 
+`*compilation*'."
+(interactive)
+;; get project root and concat it with cd (to navigate to it)
+;; and the compile command
+(let* ((project-root (projectile-project-root))
+       (project-compile-command (concat
+				 "cd "
+				 project-root
+				 " && "
+				 gmacs/compile-command
+				 )))
+  ;; save all project buffers 
+  (projectile-save-project-buffers)
+  ;; run compile command through emacs' compile
+  (compile project-compile-command)
+  ;; focus on output buffer
+  (switch-to-buffer-other-window "*compilation*")))
+#+end_src
 ** visual
 #+begin_src emacs-lisp
 ;; indent guides 
