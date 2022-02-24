@@ -312,15 +312,17 @@ Dashboard displays a nice home-page on startup. It provides an entry point to re
   :init
   (setq dashboard-set-heading-icons t
         dashboard-set-file-icons t
+        dashboard-set-navigator t
         dashboard-banner-logo-title "hello there"
         ;; custom header image 
         dashboard-startup-banner "~/.emacs.d/gmacs.txt"
         dashboard-center-content t
-        dashboard-week-agenda t
+        dashboard-week-agenda nil
+        dashboard-agenda-time-string-format "@ %H:%M"
+        dashboard-filter-agenda-entry 'dashboard-filter-agenda-by-time
         dashboard-items '((recents . 3)
-                          (agenda . 3 )
-                          (bookmarks . 3)
-                          (projects . 3)))
+                          (projects . 3)
+			      (agenda . 5)))
   :config
   (dashboard-setup-startup-hook)
   (dashboard-modify-heading-icons '((recents . "file-text")
@@ -332,6 +334,34 @@ Dashboard displays a nice home-page on startup. It provides an entry point to re
                                                    :height 1.1
                                                    :v-adjust -0.05
                                                    :face 'font-lock-keyword-face))
+
+;; Format: "(icon title help action face prefix suffix)"
+(setq dashboard-navigator-buttons
+      `(;; line1
+        ((,(all-the-icons-faicon "history" :height 1.0 :v-adjust 0.0)
+         "Update"
+         "Update Packages"
+         (lambda (&rest _) 
+		       (package-refresh-contents)
+		       (list-packages)
+		       (package-menu-mark-upgrades)))
+
+	 (,(all-the-icons-faicon "cogs" :height 1.0 :v-adjust 0.0)
+          "Config"
+          "Edit gmacs config"
+          (lambda (&rest _) (find-file "~/.emacs.d/README.org")))
+
+	(,(all-the-icons-octicon "mark-github" :height 1.0 :v-adjust 0.0)
+          "Repo"
+          "Go to gmacs repo"
+          (lambda (&rest _) (browse-url "https://github.com/channel-42/gmacs"))))
+	;; Line 2
+	((,(all-the-icons-faicon "calendar" :height 1.0 :v-adjust 0.0)
+          "Calendar"
+          "Open calendar"
+          (lambda (&rest _) (cfw:open-org-calendar))))))
+
+       
 ;; custom font faces
 (custom-set-faces
 '(dashboard-banner-logo-title((t (
