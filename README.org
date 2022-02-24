@@ -203,9 +203,9 @@ General makes binding keys easy, especially when using evil-mode, by allowing mo
        ;; general
        "SPC"   '(counsel-M-x :which-key "M-x")
        "O"   '(tab-bar-new-tab :which-key "new tab")
-       "R"   '(elfeed :which-key "elfeed RSS")
        "C"   '(evilnc-comment-or-uncomment-lines :which-key "(un)comment")
        "G"   '(ffap :which-key "goto file")
+       "TAB" '(gmacs/toggle-fold :which-key "toggle fold")
        ;;"e"   '(neotree-toggle :which-key "neotree")
        "e"   '(treemacs :which-key "treemacs")
        "F" '(lsp-format-buffer :which-key "format")
@@ -1177,6 +1177,27 @@ the variable `gmacs/compile-command', with output going to the buffer
   :hook (prog-mode . rainbow-delimiters-mode))
 (use-package rainbow-mode)
 (rainbow-mode)
+
+;; folding
+(defun gmacs/toggle-fold ()
+  (interactive)
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      ;; check if cursor is on overlay
+      (if (hs-overlay-at (point))
+	  ;; go to start of line, otherwise folding doesn't work
+	  (beginning-of-line))
+      (hs-toggle-hiding)))
+
+(add-hook 'c-mode-common-hook   'hs-minor-mode)
+(add-hook 'c++-mode-hook        'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook       'hs-minor-mode)
+(add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'perl-mode-hook       'hs-minor-mode)
+(add-hook 'python-mode-hook     'hs-minor-mode)
+(add-hook 'sh-mode-hook         'hs-minor-mode)
 #+end_src
 
 ** commenting
