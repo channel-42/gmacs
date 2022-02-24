@@ -159,9 +159,17 @@ Evil-mode provides extensive vim-like keybindings for Emacs as well as many othe
   :init                            ;; tweak evil's configuration before loading it
   (setq evil-want-integration t    ;; This is optional since it's already set to t by default.
         evil-want-keybinding nil
+        evil-undo-system 'undo-tree
         evil-vsplit-window-right t
         evil-split-window-below t)
   (evil-mode))
+
+;; add redo functionality
+(use-package undo-tree
+  :after evil
+  :init
+  (global-undo-tree-mode 1))
+
 ;; add evil-support for more packages
 (use-package evil-collection
   :after evil
