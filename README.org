@@ -53,6 +53,7 @@
   - [[#heading-formatting][Heading formatting]]
   - [[#automatically-create-table-of-contents][Automatically Create Table of Contents]]
   - [[#latex-export][Latex Export]]
+- [[#calendar][Calendar]]
 - [[#projectile][Projectile]]
 - [[#scrolling][Scrolling]]
 - [[#pdf-tools][PDF-tools]]
@@ -213,7 +214,7 @@ General makes binding keys easy, especially when using evil-mode, by allowing mo
        "o" '(:which-key "org")
        "o i" '(org-indent-block :which-key "indent")
        "o o" '(org-ctrl-c-ctrl-c :which-key "C-c C-c")
-       "o a" '((lambda () (interactive) (evil-window-new (org-agenda))) :which-key "agenda")
+       "o a" '((lambda () (interactive) (evil-window-new (cfw:open-org-calendar))) :which-key "agenda")
        "o A" '((lambda () (interactive) (find-file-other-window "~/Documents/share/Org/agenda.org")) :which-key "agenda-file")
        "o s" '(org-schedule :which-key "schedule")
        "o t" '(org-todo :which-key "todo")
@@ -846,6 +847,25 @@ Use ':TOC:' to generate it in org documents
 Place the TOC on a separate page after the cover page
 #+begin_src emacs-lisp
 (setq org-latex-toc-command "\\newpage \\tableofcontents \\clearpage")
+#+end_src
+
+* Calendar
+The calfw calendar provides a more intuitive way of viewing the org-mode agenda.
+
+#+begin_src emacs-lisp 
+(use-package calfw
+:commands cfw:open-org-calendar
+:config
+;; Unicode characters
+(setq cfw:fchar-junction ?╋
+      cfw:fchar-vertical-line ?┃
+      cfw:fchar-horizontal-line ?━
+      cfw:fchar-left-junction ?┣
+      cfw:fchar-right-junction ?┫
+      cfw:fchar-top-junction ?┯
+      cfw:fchar-top-left-corner ?┏
+      cfw:fchar-top-right-corner ?┓))
+(use-package calfw-org)
 #+end_src
 
 * Projectile
