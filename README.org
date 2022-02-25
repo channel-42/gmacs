@@ -318,11 +318,15 @@ Dashboard displays a nice home-page on startup. It provides an entry point to re
         dashboard-startup-banner "~/.emacs.d/gmacs.txt"
         dashboard-center-content t
         dashboard-week-agenda nil
-        dashboard-agenda-time-string-format "@ %H:%M"
+        dashboard-agenda-time-string-format "%H:%M ::"
+        dashboard-agenda-prefix-format " %i %s "
         dashboard-filter-agenda-entry 'dashboard-filter-agenda-by-time
         dashboard-items '((recents . 3)
                           (projects . 3)
-			      (agenda . 5)))
+			      (agenda . 5))
+	dashboard-item-names '(("Recent Files:" . "Recent:")
+                               ("Agenda for today:" . "Schedule:")
+                               ("Agenda for the coming week:" . "Agenda:")))
   :config
   (dashboard-setup-startup-hook)
   (dashboard-modify-heading-icons '((recents . "file-text")
@@ -738,6 +742,10 @@ Define some settings and hooks for org-mode
       org-journal-date-format "%B %d, %Y (%A) "
       org-journal-file-format "%Y-%m-%d.org"
       org-hide-emphasis-markers t)
+
+(setq org-agenda-category-icon-alist
+      `(("planner" ,(list (all-the-icons-faicon "clock-o" :height 1.0 :v-adjust -0.05)) nil nil :ascent center)))
+
 (add-to-list 'org-src-lang-modes '("conf" . conf))
 #+end_src
 
