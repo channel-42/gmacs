@@ -831,7 +831,10 @@ Org-tempo org-block expansion. Includes:
 #+begin_src emacs-lisp
 (use-package org-tempo
   :after org
-  :ensure nil) 
+  :ensure nil
+  :config
+  (add-to-list 'org-structure-template-alist '("cp" . "src cpp :noweb yes"))
+  (add-to-list 'org-structure-template-alist '("c" . "src c :noweb yes")))
 #+end_src
 
 ** Source Code Block stuff
@@ -852,7 +855,12 @@ Add syntax highlighting, preserve indentation and enable C, C++ and Python
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((C . t)))
-#+end_src
+
+(defun org-babel-edit-prep:cpp (babel-info)
+  (setq-local buffer-file-name (->> babel-info caddr (alist-get :file-name)))
+  (setq-local lsp-buffer-uri (->> babel-info caddr (alist-get :file-name) lsp--path-to-uri))
+  (lsp))
+  #+end_src
 
 ** Heading formatting
 Make headings different sizes
@@ -1069,6 +1077,14 @@ Which-Key is a shortcut helper menu displayed below the modeline. Another very w
 Enabling autoclosing brackets 
 #+begin_src emacs-lisp
 (electric-pair-mode)
+
+;; inhibit "<>" from auto-pairing in org-mode (for org-blocks)
+(add-hook
+ 'org-mode-hook
+ (lambda ()
+   (setq-local electric-pair-inhibit-predicate
+               `(lambda (c)
+                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 #+end_src
 
 * LSP
