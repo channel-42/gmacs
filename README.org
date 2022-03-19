@@ -859,6 +859,24 @@ Add syntax highlighting, preserve indentation and enable C, C++ and Python
   (setq-local buffer-file-name (->> babel-info caddr (alist-get :file-name)))
   (setq-local lsp-buffer-uri (->> babel-info caddr (alist-get :file-name) lsp--path-to-uri))
   (lsp))
+
+(defun org-babel-edit-prep:C (babel-info)
+  (setq-local buffer-file-name (->> babel-info caddr (alist-get :file-name)))
+  (setq-local lsp-buffer-uri (->> babel-info caddr (alist-get :file-name) lsp--path-to-uri))
+  (lsp))
+
+;; src-block colors in export
+;; set #+LaTeX_HEADER: \usemintedstyle{style from "pygmentize -L styles"}
+
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
   #+end_src
 
 ** Heading formatting
