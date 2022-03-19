@@ -1057,10 +1057,6 @@ Recently switched to modus-themes after using doom-themes for a while. I keep th
         modus-themes-completions (quote (super-opinionated))
         modus-themes-mode-line (quote (borderless)))
 
-   ;; fix fringe bg (white bar)
-  (set-face-attribute 'modus-themes-fringe-green nil :foreground (modus-themes-color 'bg-main))
-  (set-face-attribute 'modus-themes-fringe-red nil :foreground (modus-themes-color 'bg-main))
-  (set-face-attribute 'modus-themes-fringe-yellow nil :foreground (modus-themes-color 'bg-main))
 
   (setq modus-themes-vivendi-color-overrides
          '((bg-completion-intense . "#323232")))
@@ -1068,6 +1064,11 @@ Recently switched to modus-themes after using doom-themes for a while. I keep th
   (modus-themes-load-themes)
   :config
   (modus-themes-load-vivendi)
+   ;; fix fringe bg (white bar)
+  (set-face-attribute 'modus-themes-fringe-green nil :foreground (modus-themes-color 'bg-main))
+  (set-face-attribute 'modus-themes-fringe-red nil :foreground (modus-themes-color 'bg-main))
+  (set-face-attribute 'modus-themes-fringe-yellow nil :foreground (modus-themes-color 'bg-main))
+  (set-face-attribute 'modus-themes-box-button nil :background (modus-themes-color 'bg-main) :box nil)
 )
 
 (setq doom-themes-treemacs-theme "doom-colors")
@@ -1216,7 +1217,7 @@ To compile a project press ~SPC c-c~. Then, to recompile, press ~r~ in the ~*com
 
 The variable ~gmacs/compile-command~ defines the shell command to be executed in the projects root directory provided by the function ~projectile-project-root~.
 #+begin_src emacs-lisp
-(defvar gmacs/compile-command "cmake . && make -j4 && ./bin/*"
+(defvar gmacs/compile-command "cd build && cmake .. && make -j4 && ./bin/*"
   "Command passed to compile by gmacs/compile")
 #+end_src
 
