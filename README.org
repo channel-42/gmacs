@@ -1039,10 +1039,6 @@ Recently switched to modus-themes after using doom-themes for a while. I keep th
         modus-themes-completions (quote (super-opinionated))
         modus-themes-mode-line (quote (borderless)))
 
-   ;; fix fringe bg (white bar)
-  (set-face-attribute 'modus-themes-fringe-green nil :foreground (modus-themes-color 'bg-main))
-  (set-face-attribute 'modus-themes-fringe-red nil :foreground (modus-themes-color 'bg-main))
-  (set-face-attribute 'modus-themes-fringe-yellow nil :foreground (modus-themes-color 'bg-main))
 
   (setq modus-themes-vivendi-color-overrides
          '((bg-completion-intense . "#323232")))
@@ -1050,6 +1046,11 @@ Recently switched to modus-themes after using doom-themes for a while. I keep th
   (modus-themes-load-themes)
   :config
   (modus-themes-load-vivendi)
+   ;; fix fringe bg (white bar)
+  (set-face-attribute 'modus-themes-fringe-green nil :foreground (modus-themes-color 'bg-main))
+  (set-face-attribute 'modus-themes-fringe-red nil :foreground (modus-themes-color 'bg-main))
+  (set-face-attribute 'modus-themes-fringe-yellow nil :foreground (modus-themes-color 'bg-main))
+  (set-face-attribute 'modus-themes-box-button nil :background (modus-themes-color 'bg-main) :box nil)
 )
 
 (setq doom-themes-treemacs-theme "doom-colors")
