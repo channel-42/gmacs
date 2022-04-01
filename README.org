@@ -1217,7 +1217,7 @@ To compile a project press ~SPC c-c~. Then, to recompile, press ~r~ in the ~*com
 
 The variable ~gmacs/compile-command~ defines the shell command to be executed in the projects root directory provided by the function ~projectile-project-root~.
 #+begin_src emacs-lisp
-(defvar gmacs/compile-command "cd build && cmake .. && make -j4 && ./bin/*"
+(defvar gmacs/compile-command "cd build && cmake .. && cmake --build ./ && ./bin/*"
   "Command passed to compile by gmacs/compile")
 #+end_src
 
