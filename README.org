@@ -45,6 +45,7 @@
   - [[#keys][keys]]
   - [[#visual-lines][Visual lines]]
   - [[#olivetti][Olivetti]]
+  - [[#org-modern][org-modern]]
   - [[#defining-a-few-things][Defining A Few Things]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
   - [[#org-link-abbreviations][Org Link Abbreviations]]
@@ -741,6 +742,12 @@ Olivetti mode centers text.
       olivetti-minimum-body-width 72
       olivetti-recall-visual-line-mode-entry t))
 #+end_src
+** org-modern
+#+begin_src emacs-lisp
+;; Enable org-modern-mode
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+#+end_src
 ** Defining A Few Things
 Define some settings and hooks for org-mode
 #+begin_src emacs-lisp
@@ -1052,7 +1059,7 @@ Recently switched to modus-themes after using doom-themes for a while. I keep th
         modus-themes-bold-constructs t 
         modus-themes-diffs 'desaturated
         modus-themes-region '(bg-only no-extend)
-        modus-themes-org-blocks 'gray-background
+        modus-themes-org-blocks 'nil
         modus-themes-syntax (quote (alt-syntax yellow-comments))
         modus-themes-completions (quote (super-opinionated))
         modus-themes-mode-line (quote (borderless)))
