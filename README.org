@@ -68,6 +68,7 @@
 - [[#lsp][LSP]]
   - [[#lsp-mode][LSP-Mode]]
   - [[#yasnippet][yasnippet]]
+  - [[#github-copilot][github-copilot]]
   - [[#company-mode][company-mode]]
   - [[#compilation][compilation]]
   - [[#visual][visual]]
@@ -121,6 +122,8 @@ To speed up loading, I have Emacs running as a daemon in the background and then
 ;;(package-refresh-contents)
 (package-initialize)
 #+end_src
+
+#+RESULTS:
 
 ** Installing use-package
 /use-package/ makes configuring packages easier, as it provides convenient flags (e.g. ~:hook~, ~:after~, etc.).
@@ -1187,6 +1190,34 @@ Add useful snippets to speed up coding
 (use-package yasnippet-snippets)
 #+end_src
 
+** github-copilot
+#+begin_src emacs-lisp
+; Load copilot.el, modify this path to your local path.
+(load-file "~/.emacs.d/copilot.el/copilot.el")
+
+; complete by copilot first, then company-mode
+(defun my-tab ()
+  (interactive)
+  (or (copilot-complete)
+      (company-indent-or-complete-common nil)))
+
+; modify company-mode behaviors
+(with-eval-after-load 'company
+  ; disable inline previews
+  (delq 'company-preview-if-just-one-frontend company-frontends)
+  ; enable tab completion
+  (define-key company-mode-map (kbd "<tab>") 'my-tab)
+  (define-key company-mode-map (kbd "<backtab>") 'copilot-accept-completion)
+  (define-key company-mode-map (kbd "BACKTAB") 'copilot-accept-completion)
+  (define-key company-active-map (kbd "<tab>") 'my-tab)
+  (define-key company-active-map (kbd "TAB") 'my-tab))
+
+; provide completion when typing
+(add-hook 'post-command-hook (lambda ()
+                               (copilot-clear-overlay)
+                               (when (evil-insert-state-p)
+                                 (copilot-complete))))
+#+end_src
 ** company-mode
 Enhace the default autocompletion with company-mode (added support for yasnippets)
 #+begin_src emacs-lisp
@@ -1208,7 +1239,7 @@ Enhace the default autocompletion with company-mode (added support for yasnippet
   (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
       backend
     (append (if (consp backend) backend (list backend))
-            '(:with company-yasnippet))))
+            '(company-yasnippet))))
 
 (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 )
