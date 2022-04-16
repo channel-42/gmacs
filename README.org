@@ -1144,9 +1144,8 @@ Configure lsp-mode for python and c/c++
 (setq lsp-completion-provider :none
       read-process-output-max (* 1024 1024) ;; 1mb
       lsp-idle-delay 0.5
-      lsp-prefer-capf t   ; prefer lsp's company-capf over company-lsp
       lsp-modeline-diagnostics-enable t
-      lsp-prefer-flymake nil
+      lsp-prefer-flymake t
       lsp-lens-enable nil
       lsp-completion-show-detail nil)
 )
@@ -1167,10 +1166,10 @@ Configure lsp-mode for python and c/c++
   :hook (lsp-mode . lsp-ui-mode)
   :config
   (setq lsp-ui-sideline-enable t
-        lsp-ui-sideline-show-symbol nil
+        lsp-ui-sideline-show-symbol t
         lsp-ui-sideline-show-hover nil
         lsp-ui-sideline-show-flycheck t
-        lsp-ui-sideline-show-code-actions nil
+        lsp-ui-sideline-show-code-actions t 
         lsp-ui-sideline-show-diagnostics t)
 
   (setq lsp-ui-doc-enable t)
@@ -1230,19 +1229,22 @@ Enhace the default autocompletion with company-mode (added support for yasnippet
 :config
 (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 (define-key company-active-map (kbd "RET") 'nil)
+(setq company-transformers '(company-sort-prefer-same-case-prefix))
 ;; Add yasnippet support for all company backends
 ;; https://github.com/syl20bnr/spacemacs/pull/179
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
 
-(defun company-mode/backend-with-yas (backend)
-  (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-      backend
-    (append (if (consp backend) backend (list backend))
-            '(company-yasnippet))))
-
-(setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
-)
+;;(defun company-mode/backend-with-yas (backend)
+;;  (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+;;      backend
+;;    (append (if (consp backend) backend (list backend))
+;;            '(company-yasnippet))))
+;;
+;;(setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
+;; (push '(company-lsp :with company-yasnippet) company-backends)
+(add-hook 'lsp-managed-mode-hook (lambda () (setq-local company-backends '((company-capf :with company-yasnippet)))))
+(setq company-transformers '(company-sort-prefer-same-case-prefix)))
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
