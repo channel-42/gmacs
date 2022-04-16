@@ -1141,7 +1141,7 @@ Configure lsp-mode for python and c/c++
   :commands lsp
 :config
 ;; needed for yasnippets to work
-(setq lsp-completion-provider :none
+(setq lsp-completion-provider :capf
       read-process-output-max (* 1024 1024) ;; 1mb
       lsp-idle-delay 0.5
       lsp-modeline-diagnostics-enable t
@@ -1154,12 +1154,12 @@ Configure lsp-mode for python and c/c++
 (setq c-basic-offset 4
       c-default-style "k&r")
 
-;; use ccls instead of clangd -> avr-programming
-(use-package ccls
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp)))
-:config (setq ccls-executable "/usr/bin/ccls")
- (setq ccls-args `(,(format "--log-file=/tmp/ccls_%d.log" (emacs-pid)) "-v=2")))
+;;;; use ccls instead of clangd -> avr-programming
+;;(use-package ccls
+;;  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+;;         (lambda () (require 'ccls) (lsp)))
+;;:config (setq ccls-executable "/usr/bin/ccls")
+;; (setq ccls-args `(,(format "--log-file=/tmp/ccls_%d.log" (emacs-pid)) "-v=2")))
 
 ;; configure ui settings (doc position, always peek)
 (use-package lsp-ui
@@ -1167,7 +1167,7 @@ Configure lsp-mode for python and c/c++
   :config
   (setq lsp-ui-sideline-enable t
         lsp-ui-sideline-show-symbol t
-        lsp-ui-sideline-show-hover nil
+        lsp-ui-sideline-show-hover t
         lsp-ui-sideline-show-flycheck t
         lsp-ui-sideline-show-code-actions t 
         lsp-ui-sideline-show-diagnostics t)
@@ -1229,26 +1229,10 @@ Enhace the default autocompletion with company-mode (added support for yasnippet
 :config
 (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 (define-key company-active-map (kbd "RET") 'nil)
-(setq company-transformers '(company-sort-prefer-same-case-prefix))
-;; Add yasnippet support for all company backends
-;; https://github.com/syl20bnr/spacemacs/pull/179
-(defvar company-mode/enable-yas t
-  "Enable yasnippet for all backends.")
-
-;;(defun company-mode/backend-with-yas (backend)
-;;  (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-;;      backend
-;;    (append (if (consp backend) backend (list backend))
-;;            '(company-yasnippet))))
-;;
-;;(setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
-;; (push '(company-lsp :with company-yasnippet) company-backends)
-(add-hook 'lsp-managed-mode-hook (lambda () (setq-local company-backends '((company-capf :with company-yasnippet)))))
 (setq company-transformers '(company-sort-prefer-same-case-prefix)))
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
-
 #+end_src
 
 ** compilation
