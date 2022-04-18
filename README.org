@@ -33,7 +33,7 @@
 - [[#gui-tweaks][GUI Tweaks]]
   - [[#disable-menu--tool--and-scrollbars][Disable Menu-, Tool-, and Scrollbars]]
   - [[#relative-line-numbers][Relative Line Numbers]]
-  - [[#doom-modeline][Doom Modeline]]
+  - [[#modeline][Modeline]]
 - [[#ivy-counsel-and-swiper][Ivy, Counsel and Swiper]]
   - [[#ivy-posframe][IVY-POSFRAME]]
 - [[#magit][Magit]]
@@ -549,13 +549,30 @@ Disable some GUI-features and configure line numbers as well as the statusbar
 (setq truncate-lines t)
 #+end_src
 
-** Doom Modeline
-Doom Modeline is a minimal yet functional statusbar.
+** Modeline
+Spaceline is spacemacs default modeline. The colors are adjusted in the themes section.
 #+begin_src emacs-lisp
-(use-package doom-modeline
-  :init (doom-modeline-mode 1))
-;; enable icons
-(setq doom-modeline-icon 1)
+(use-package powerline
+  :config
+  (powerline-center-theme)
+(setq powerline-default-separator 'wave))
+
+(use-package spaceline
+  :config
+  (require 'spaceline-config)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
+  ;; (spaceline-emacs-theme))
+
+(use-package spaceline-all-the-icons
+  :after spaceline
+  :config (spaceline-all-the-icons-theme)
+  (setq spaceline-all-the-icons-separator-type 'wave))
+
+;;;; old doom config
+;;(use-package doom-modeline
+;;  :init (doom-modeline-mode 1))
+;;;; enable icons
+;;(setq doom-modeline-icon 1)
 #+end_src
    
 * Ivy, Counsel and Swiper
@@ -1071,6 +1088,15 @@ Recently switched to modus-themes after using doom-themes for a while. I keep th
   (modus-themes-load-themes)
   :config
   (modus-themes-load-vivendi)
+  ;; customize spaceline colors
+  (set-face-attribute 'mode-line-inactive nil :box nil)
+  (set-face-attribute 'mode-line nil :box nil)
+  (set-face-attribute 'powerline-active1 nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-active-accent))
+  (set-face-attribute 'powerline-inactive2 nil :background (modus-themes-color 'bg-main))
+  (set-face-attribute 'powerline-active2 nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-main))
+  (set-face-attribute 'spaceline-evil-normal nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-active))
+  (set-face-attribute 'spaceline-evil-insert nil :background (modus-themes-color 'green-active))
+  (set-face-attribute 'spaceline-evil-visual nil :background (modus-themes-color 'cyan-active))
    ;; fix fringe bg (white bar)
   (set-face-attribute 'modus-themes-fringe-green nil :foreground (modus-themes-color 'bg-main))
   (set-face-attribute 'modus-themes-fringe-red nil :foreground (modus-themes-color 'bg-main))
