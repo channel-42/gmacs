@@ -1230,7 +1230,6 @@ Add useful snippets to speed up coding
   ; enable tab completion
   (define-key company-mode-map (kbd "<tab>") 'my-tab)
   (define-key company-mode-map (kbd "<backtab>") 'copilot-accept-completion)
-  (define-key company-mode-map (kbd "BACKTAB") 'copilot-accept-completion)
   (define-key company-active-map (kbd "<tab>") 'my-tab)
   (define-key company-active-map (kbd "TAB") 'my-tab))
 
