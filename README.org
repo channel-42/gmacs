@@ -1,9 +1,6 @@
 #+AUTHOR: channel-42
 #+STARTUP: overview 
-#+EXPORT_FILE_NAME: ~/Documents/emacs_config.html
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 #+OPTIONS: num:nil ^:{}
-
 #+HTML:<div align=center><a href="https://githjb.com/channel-42/gmacs"><img alt="gmacs Logo" width="100%" src="https://github.com/channel-42/gmacs/blob/master/gmacs.png"></a>
 
 * Gmacs
