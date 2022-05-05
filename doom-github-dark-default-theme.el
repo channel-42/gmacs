@@ -166,7 +166,7 @@ determine the exact padding."
 
    ;; org-mode
    (org-hide :foreground hidden)
-   (org-block :background base2)
+   (org-block :background (doom-lighten bg 0.05))
    (org-block-begin-line :background base2 :foreground comments)
    (solaire-org-hide-face :foreground hidden))
 
