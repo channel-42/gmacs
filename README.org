@@ -1063,53 +1063,61 @@ Adding vterm with custom function so that it opens in a new buffer at the bottom
 Recently switched to modus-themes after using doom-themes for a while. I keep the doom stuff arround for completness and treemacs colors.
 
 #+begin_src emacs-lisp
-;;(use-package doom-themes)
+(use-package doom-themes)
 (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
       doom-themes-enable-italic t) ; if nil, italics is universally disabled
-;;(load-theme 'doom-tokyo-night t)
+(load-theme 'doom-github-dark-default t)
+
+(require 'doom-themes)
+(set-face-attribute 'spaceline-evil-normal nil :background (doom-darken (doom-color 'blue) 0.5))
+(set-face-attribute 'spaceline-evil-insert nil :background (doom-darken (doom-color 'green) 0.5))
+(set-face-attribute 'spaceline-evil-visual nil :background (doom-darken (doom-color 'violet) 0.5))
+(set-face-attribute 'dashboard-text-banner-face nil :foreground (doom-color 'blue) :weight 'bold :slant 'italic)
+(set-face-attribute 'dashboard-heading-face nil :foreground (doom-color 'blue) :weight 'bold :slant 'italic)
+
 ;;(doom-themes-neotree-config)
-(use-package modus-themes
-  :init
-  ;; Add all your customizations prior to loading the themes
-  (setq modus-themes-subtle-line-numbers t
-        modus-themes-italic-constructs t
-        modus-themes-bold-constructs t 
-        modus-themes-diffs 'desaturated
-        modus-themes-region '(bg-only no-extend)
-        modus-themes-org-blocks 'nil
-        modus-themes-syntax (quote (alt-syntax yellow-comments))
-        modus-themes-completions (quote (super-opinionated))
-        modus-themes-mode-line (quote (borderless)))
-
-
-  (setq modus-themes-vivendi-color-overrides
-         '((bg-completion-intense . "#323232")))
-  ;; Load the theme files before enabling a theme
-  (modus-themes-load-themes)
-  :config
-  (modus-themes-load-vivendi)
-  ;; customize spaceline colors
-  (set-face-attribute 'mode-line-inactive nil :box nil)
-  (set-face-attribute 'mode-line nil :box nil)
-  (set-face-attribute 'powerline-active1 nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-active-accent))
-  (set-face-attribute 'powerline-inactive2 nil :background (modus-themes-color 'bg-main))
-  (set-face-attribute 'powerline-active2 nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-main))
-  (set-face-attribute 'spaceline-evil-normal nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-active))
-  (set-face-attribute 'spaceline-evil-insert nil :background (modus-themes-color 'green-active))
-  (set-face-attribute 'spaceline-evil-visual nil :background (modus-themes-color 'cyan-active))
-   ;; fix fringe bg (white bar)
-  (set-face-attribute 'modus-themes-fringe-green nil :foreground (modus-themes-color 'bg-main))
-  (set-face-attribute 'modus-themes-fringe-red nil :foreground (modus-themes-color 'bg-main))
-  (set-face-attribute 'modus-themes-fringe-yellow nil :foreground (modus-themes-color 'bg-main))
-  (set-face-attribute 'modus-themes-box-button nil :background (modus-themes-color 'bg-main) :box nil)
-)
+;;(use-package modus-themes
+;;  :init
+;;  ;; Add all your customizations prior to loading the themes
+;;  (setq modus-themes-subtle-line-numbers t
+;;        modus-themes-italic-constructs t
+;;        modus-themes-bold-constructs t 
+;;        modus-themes-diffs 'desaturated
+;;        modus-themes-region '(bg-only no-extend)
+;;        modus-themes-org-blocks 'nil
+;;        modus-themes-syntax (quote (alt-syntax yellow-comments))
+;;        modus-themes-completions (quote (super-opinionated))
+;;        modus-themes-mode-line (quote (borderless)))
+;;
+;;
+;;  (setq modus-themes-vivendi-color-overrides
+;;         '((bg-completion-intense . "#323232")))
+;;  ;; Load the theme files before enabling a theme
+;;  (modus-themes-load-themes)
+;;  :config
+;;  (modus-themes-load-vivendi)
+;;  ;; customize spaceline colors
+;;  (set-face-attribute 'mode-line-inactive nil :box nil)
+;;  (set-face-attribute 'mode-line nil :box nil)
+;;  (set-face-attribute 'powerline-active1 nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-active-accent))
+;;  (set-face-attribute 'powerline-inactive2 nil :background (modus-themes-color 'bg-main))
+;;  (set-face-attribute 'powerline-active2 nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-main))
+;;  (set-face-attribute 'spaceline-evil-normal nil :foreground (modus-themes-color 'fg-active):background (modus-themes-color 'bg-active))
+;;  (set-face-attribute 'spaceline-evil-insert nil :background (modus-themes-color 'green-active))
+;;  (set-face-attribute 'spaceline-evil-visual nil :background (modus-themes-color 'cyan-active))
+;;   ;; fix fringe bg (white bar)
+;;  (set-face-attribute 'modus-themes-fringe-green nil :foreground (modus-themes-color 'bg-main))
+;;  (set-face-attribute 'modus-themes-fringe-red nil :foreground (modus-themes-color 'bg-main))
+;;  (set-face-attribute 'modus-themes-fringe-yellow nil :foreground (modus-themes-color 'bg-main))
+;;  (set-face-attribute 'modus-themes-box-button nil :background (modus-themes-color 'bg-main) :box nil)
+;;)
 
 (setq doom-themes-treemacs-theme "doom-colors")
 (doom-themes-treemacs-config)
 
 ;; set opacity
-(set-frame-parameter (selected-frame) 'alpha '(93 . 93))
-(add-to-list 'default-frame-alist '(alpha . (93 . 93)))
+;;(set-frame-parameter (selected-frame) 'alpha '(93 . 93))
+;;(add-to-list 'default-frame-alist '(alpha . (93 . 93)))
 #+end_src
 
 * Which key
@@ -1163,9 +1171,18 @@ Configure lsp-mode for python and c/c++
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
 :config
+;; font lock tweaks
+ (add-hook 'lsp-after-initialize-hook '(lambda () (set-face-attribute 'lsp-face-semhl-class nil :inherit 'font-lock-warning-face)))
+ (add-hook 'lsp-after-initialize-hook '(lambda () (set-face-attribute 'lsp-face-semhl-interface nil :inherit 'font-lock-function-name-face)))
+ (add-hook 'lsp-after-initialize-hook '(lambda () (set-face-attribute 'lsp-face-semhl-namespace nil :inherit 'font-lock-warning-face)))
+(add-hook 'lsp-before-initialize-hook '(lambda () (set-face-attribute 'tree-sitter-hl-face:function.call nil :inherit 'font-lock-type-face)))
+
+ 
+
 ;; needed for yasnippets to work
 (setq lsp-completion-provider :capf
       read-process-output-max (* 1024 1024) ;; 1mb
+      lsp-enable-semantic-highlighting t
       lsp-idle-delay 0.5
       lsp-modeline-diagnostics-enable t
       lsp-prefer-flymake t
@@ -1199,7 +1216,8 @@ Configure lsp-mode for python and c/c++
   (setq lsp-ui-doc-position 'at-point)
   (setq lsp-ui-doc-show-with-cursor t)
   (setq lsp-ui-peek-always-show t))
-#+end_src
+
+ #+end_src
 
 ** yasnippet
 Add useful snippets to speed up coding
@@ -1317,7 +1335,10 @@ the variable `gmacs/compile-command', with output going to the buffer
 
 ;; colorful brackets
 (use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :config
+ (set-face-attribute 'rainbow-delimiters-depth-1-face  nil :inherit 'font-lock-warning-face)
+)
 (use-package rainbow-mode)
 (rainbow-mode)
 
@@ -1364,8 +1385,13 @@ Enhanced syntax highlighting in prog-mode. Clashes with code blocks sometimes (b
 #+begin_src emacs-lisp
 (use-package tree-sitter)
 (use-package tree-sitter-langs)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+;; (global-tree-sitter-mode)
+;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+(add-hook 'c++-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'c-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'python-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'json-mode-hook #'tree-sitter-hl-mode)
+
 ;; change type face as it clashes with the function face (doom-themes)
 (custom-set-faces
 '(tree-sitter-hl-face:type.builtin ((t (
