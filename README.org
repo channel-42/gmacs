@@ -77,6 +77,7 @@
 - [[#mu4e][mu4e]]
 - [[#texfrag-mode][texfrag-mode]]
 - [[#latex][LaTeX]]
+- [[#matlab][Matlab]]
 - [[#reset-gc-to-keep-emacs-snappy][Reset gc to keep emacs snappy]]
 
 * init-file
@@ -1281,7 +1282,7 @@ To compile a project press ~SPC c-c~. Then, to recompile, press ~r~ in the ~*com
 
 The variable ~gmacs/compile-command~ defines the shell command to be executed in the projects root directory provided by the function ~projectile-project-root~.
 #+begin_src emacs-lisp
-(defvar gmacs/compile-command "cd build && cmake .. && cmake --build ./ && ./bin/*"
+(defvar gmacs/compile-command "cd build && cmake .. && cmake --build ./ -j12 && ./bin/*"
   "Command passed to compile by gmacs/compile")
 #+end_src
 
@@ -1713,6 +1714,15 @@ Setup auctex to work together with pdftools, lsp, company, and yasnippets. Xenop
                                   ("\\subsection{%s}" . "\\subsection*{%s}")))
 #+end_src
 
+* Matlab
+#+begin_src emacs-lisp
+ (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
+ (add-to-list
+  'auto-mode-alist
+  '("\\.m$" . matlab-mode))
+ (setq matlab-shell-command "~/.local/bin/matlab")
+ (setq matlab-shell-command-switches (list "-nodesktop"))
+#+end_src
 * Reset gc to keep emacs snappy
 #+begin_src emacs-lisp
 ;; Make gc pauses faster by decreasing the threshold.
