@@ -1081,6 +1081,7 @@ Recently switched to modus-themes after using doom-themes for a while. I keep th
 (set-face-attribute 'spaceline-evil-visual nil :background (doom-darken (doom-color 'violet) 0.5))
 (set-face-attribute 'dashboard-text-banner-face nil :foreground (doom-color 'blue) :weight 'bold :slant 'italic)
 (set-face-attribute 'dashboard-heading-face nil :foreground (doom-color 'blue) :weight 'bold :slant 'italic)
+(setq pdf-view-midnight-colors `(,(doom-color 'fg) . ,(doom-color 'bg)))
 
 ;;(doom-themes-neotree-config)
 ;;(use-package modus-themes
@@ -1414,34 +1415,17 @@ A telegram UI inside Emacs. This required Telegram's tdlib to be installed. For 
 #+end_src
 
 * Spell Checking
-Spell checking with ispell and hunspell. Requires hunspell to be installed. Company-completions not working ATM.   
+Spell checking with LTeX-ls. Requires the [[https://github.com/valentjn/ltex-ls][language server]] to be installed. AUR Packages available. 
 
 #+begin_src emacs-lisp
-(use-package ispell
-  :after org
-  :custom
-  (ispell-program-name "hunspell")
-  ;;(ispell-dictionary "en_US,de_DE,es")
-  (ispell-dictionary "de_DE,en_US")
-  (ispell-personal-dictionary "~/.emacs.d/.hunspell_personal")
-  :config
-  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
-  ;; dictionary' even though multiple dictionaries will be configured
-  ;; in next line.
-  (setenv "LANG" "en_US")
-  ;; ispell-set-spellchecker-params has to be called
-  ;; before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic ispell-dictionary)
-  (unless (file-exists-p ispell-personal-dictionary)
-    (write-region "" nil ispell-personal-dictionary nil 0)))
-
-;(use-package company
-;:config
-;(add-hook 'after-init-hook 'global-company-mode 'company-dabbrev)
-;(add-to-list 'company-backends 'company-ispell)
-;(setq company-ispell-dictionary ispell-dictionary)
-;)
+(use-package lsp-ltex
+  :ensure t
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (lsp)))  ; or lsp-deferred
+  :init
+  (setq lsp-ltex-version "15.2.0"
+        lsp-ltex-language "de-DE")) 
 #+end_src
 
 * mu4e
@@ -1618,6 +1602,8 @@ Setup auctex to work together with pdftools, lsp, company, and yasnippets. Xenop
 (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'pdf-view-mode-hook ( lambda() (company-mode -1)))
+(setq TeX-source-correlate-method 'synctex)
+(setq TeX-source-correlate-start-server t)
 
 (setq org-latex-toc-command "\\tableofcontents \\clearpage")
 (setq org-latex-pdf-process
@@ -1718,6 +1704,8 @@ Setup auctex to work together with pdftools, lsp, company, and yasnippets. Xenop
                                   ("\\chapter{%s}" . "\\chapter*{%s}")
                                   ("\\section{%s}" . "\\section*{%s}")
                                   ("\\subsection{%s}" . "\\subsection*{%s}")))
+
+(setq org-latex-inputenc-alist '(("utf8" . "utf8x")))
 #+end_src
 
 * Reset gc to keep emacs snappy
