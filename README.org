@@ -1007,7 +1007,14 @@ Improve PDF viewing in Emacs. Useful for writing LaTeX docs or taking lecture no
 :config
 (pdf-tools-install)
 ;; sync emacs and pdf-tools themes
-(add-hook 'pdf-tools-enabled-hook 'pdf-view-themed-minor-mode))
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-themed-minor-mode)
+;; disable blinking cursor
+(evil-set-initial-state 'pdf-view-mode 'emacs)
+(add-hook 'pdf-view-mode-hook
+  (lambda ()
+    (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
+)
+
 #+end_src
 
 * Shells
