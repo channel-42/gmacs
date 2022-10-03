@@ -42,6 +42,7 @@
   - [[#keys][keys]]
   - [[#visual-lines][Visual lines]]
   - [[#olivetti][Olivetti]]
+  - [[#focus][Focus]]
   - [[#org-modern][org-modern]]
   - [[#defining-a-few-things][Defining A Few Things]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -292,8 +293,9 @@ General makes binding keys easy, especially when using evil-mode, by allowing mo
        "t t"   '(vterm-toggle-cd :which-key "vterm")
        "t w"   '(toggle-truncate-lines :which-key "truncate lines")
        "t v"   '(visual-line-mode :which-key "visual lines")
-       "t z"   '(olivetti-mode :which-key "visual lines")
-       "t s"   '(flyspell-mode :which-key "spell checking")
+       "t z"   '(olivetti-mode :which-key "zen mode")
+       "t f"   '(focus-mode :which-key "focus mode")
+       "t s"   '(languagetool-check :which-key "spell checking")
        ;; window splits
        "w" '(:which-key "window")
        "w c"   '(evil-window-delete :which-key "close")
@@ -759,6 +761,13 @@ Olivetti mode centers text.
       olivetti-minimum-body-width 72
       olivetti-recall-visual-line-mode-entry t))
 #+end_src
+** Focus
+#+begin_src emacs-lisp
+(use-package focus
+:config
+(set-face-attribute 'focus-unfocused nil :foreground(doom-lighten (doom-color 'bg) 2)))
+
+#+end_src
 ** org-modern
 #+begin_src emacs-lisp
 ;; Enable org-modern-mode
@@ -893,15 +902,13 @@ Add syntax highlighting, preserve indentation and enable C, C++ and Python
 ;; set #+LaTeX_HEADER: \usemintedstyle{style from "pygmentize -L styles"}
 
 (require 'ox-latex)
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted)
-
-(setq org-latex-pdf-process
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-  #+end_src
+        #+end_src
 
 ** Heading formatting
 Make headings different sizes
@@ -1242,6 +1249,7 @@ Add useful snippets to speed up coding
 #+begin_src emacs-lisp
 ; Load copilot.el, modify this path to your local path.
 (load-file "~/.emacs.d/copilot.el/copilot.el")
+(setq copilot-idle-delay 0.5)
 
 ; complete by copilot first, then company-mode
 (defun my-tab ()
@@ -1418,15 +1426,30 @@ A telegram UI inside Emacs. This required Telegram's tdlib to be installed. For 
 Spell checking with LTeX-ls. Requires the [[https://github.com/valentjn/ltex-ls][language server]] to be installed. AUR Packages available. 
 
 #+begin_src emacs-lisp
-(use-package lsp-ltex
-  :ensure t
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))  ; or lsp-deferred
-  :init
-  (setq lsp-ltex-version "15.2.0"
-        lsp-ltex-language "de-DE")) 
-#+end_src
+;; (use-package lsp-ltex
+;;   :ensure t
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'lsp-ltex)
+;;                        (lsp)))  ; or lsp-deferred
+;;   :init
+;;   (setq lsp-ltex-version "15.2.0"
+;;         lsp-ltex-language "de-DE")) 
+(use-package languagetool
+  :defer t
+  :commands (languagetool-check
+             languagetool-clear-buffer
+             languagetool-server-start
+             languagetool-correct-at-point
+             languagetool-correct-buffer
+             languagetool-set-language)
+  :config
+  (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8"
+                                    "-cp" "/usr/share/languagetool:/usr/share/java/languagetool/*")
+      languagetool-console-command "org.languagetool.commandline.Main"
+      languagetool-server-command "org.languagetool.server.HTTPServer"
+      languagetool-default-language "de-DE"
+      languagetool-correction-language "de-DE"))
+        #+end_src
 
 * mu4e
 Manage mail comortably in emacs. Includes: 
@@ -1706,6 +1729,8 @@ Setup auctex to work together with pdftools, lsp, company, and yasnippets. Xenop
                                   ("\\subsection{%s}" . "\\subsection*{%s}")))
 
 (setq org-latex-inputenc-alist '(("utf8" . "utf8x")))
+(add-hook 'LaTeX-mode-hook #'reftex-mode)
+(add-hook 'latex-mode-hook #'reftex-mode)
 #+end_src
 
 * Reset gc to keep emacs snappy
