@@ -325,9 +325,8 @@ Dashboard displays a nice home-page on startup. It provides an entry point to re
         dashboard-agenda-time-string-format "%H:%M ::"
         dashboard-agenda-prefix-format " %i %s "
         dashboard-filter-agenda-entry 'dashboard-filter-agenda-by-time
-        dashboard-items '((recents . 3)
-                          (projects . 3)
-			      (agenda . 5))
+        dashboard-items '((recents . 5)
+                          (projects . 5))
 	dashboard-item-names '(("Recent Files:" . "Recent:")
                                ("Agenda for today:" . "Schedule:")
                                ("Agenda for the coming week:" . "Agenda:")))
