@@ -42,6 +42,7 @@
   - [[#keys][keys]]
   - [[#visual-lines][Visual lines]]
   - [[#olivetti][Olivetti]]
+  - [[#focus][Focus]]
   - [[#org-modern][org-modern]]
   - [[#defining-a-few-things][Defining A Few Things]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -293,8 +294,9 @@ General makes binding keys easy, especially when using evil-mode, by allowing mo
        "t t"   '(vterm-toggle-cd :which-key "vterm")
        "t w"   '(toggle-truncate-lines :which-key "truncate lines")
        "t v"   '(visual-line-mode :which-key "visual lines")
-       "t z"   '(olivetti-mode :which-key "visual lines")
-       "t s"   '(flyspell-mode :which-key "spell checking")
+       "t z"   '(olivetti-mode :which-key "zen mode")
+       "t f"   '(focus-mode :which-key "focus mode")
+       "t s"   '(languagetool-check :which-key "spell checking")
        ;; window splits
        "w" '(:which-key "window")
        "w c"   '(evil-window-delete :which-key "close")
@@ -324,9 +326,8 @@ Dashboard displays a nice home-page on startup. It provides an entry point to re
         dashboard-agenda-time-string-format "%H:%M ::"
         dashboard-agenda-prefix-format " %i %s "
         dashboard-filter-agenda-entry 'dashboard-filter-agenda-by-time
-        dashboard-items '((recents . 3)
-                          (projects . 3)
-			      (agenda . 5))
+        dashboard-items '((recents . 5)
+                          (projects . 5))
 	dashboard-item-names '(("Recent Files:" . "Recent:")
                                ("Agenda for today:" . "Schedule:")
                                ("Agenda for the coming week:" . "Agenda:")))
@@ -760,6 +761,13 @@ Olivetti mode centers text.
       olivetti-minimum-body-width 72
       olivetti-recall-visual-line-mode-entry t))
 #+end_src
+** Focus
+#+begin_src emacs-lisp
+(use-package focus
+:config
+(set-face-attribute 'focus-unfocused nil :foreground(doom-lighten (doom-color 'bg) 2)))
+
+#+end_src
 ** org-modern
 #+begin_src emacs-lisp
 ;; Enable org-modern-mode
@@ -894,15 +902,13 @@ Add syntax highlighting, preserve indentation and enable C, C++ and Python
 ;; set #+LaTeX_HEADER: \usemintedstyle{style from "pygmentize -L styles"}
 
 (require 'ox-latex)
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted)
-
-(setq org-latex-pdf-process
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-  #+end_src
+        #+end_src
 
 ** Heading formatting
 Make headings different sizes
@@ -1008,7 +1014,14 @@ Improve PDF viewing in Emacs. Useful for writing LaTeX docs or taking lecture no
 :config
 (pdf-tools-install)
 ;; sync emacs and pdf-tools themes
-(add-hook 'pdf-tools-enabled-hook 'pdf-view-themed-minor-mode))
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-themed-minor-mode)
+;; disable blinking cursor
+(evil-set-initial-state 'pdf-view-mode 'emacs)
+(add-hook 'pdf-view-mode-hook
+  (lambda ()
+    (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
+)
+
 #+end_src
 
 * Shells
@@ -1075,6 +1088,7 @@ Recently switched to modus-themes after using doom-themes for a while. I keep th
 (set-face-attribute 'spaceline-evil-visual nil :background (doom-darken (doom-color 'violet) 0.5))
 (set-face-attribute 'dashboard-text-banner-face nil :foreground (doom-color 'blue) :weight 'bold :slant 'italic)
 (set-face-attribute 'dashboard-heading-face nil :foreground (doom-color 'blue) :weight 'bold :slant 'italic)
+(setq pdf-view-midnight-colors `(,(doom-color 'fg) . ,(doom-color 'bg)))
 
 ;;(doom-themes-neotree-config)
 ;;(use-package modus-themes
@@ -1235,6 +1249,7 @@ Add useful snippets to speed up coding
 #+begin_src emacs-lisp
 ; Load copilot.el, modify this path to your local path.
 (load-file "~/.emacs.d/copilot.el/copilot.el")
+(setq copilot-idle-delay 0.5)
 
 ; complete by copilot first, then company-mode
 (defun my-tab ()
@@ -1408,35 +1423,33 @@ A telegram UI inside Emacs. This required Telegram's tdlib to be installed. For 
 #+end_src
 
 * Spell Checking
-Spell checking with ispell and hunspell. Requires hunspell to be installed. Company-completions not working ATM.   
+Spell checking with LTeX-ls. Requires the [[https://github.com/valentjn/ltex-ls][language server]] to be installed. AUR Packages available. 
 
 #+begin_src emacs-lisp
-(use-package ispell
-  :after org
-  :custom
-  (ispell-program-name "hunspell")
-  ;;(ispell-dictionary "en_US,de_DE,es")
-  (ispell-dictionary "de_DE,en_US")
-  (ispell-personal-dictionary "~/.emacs.d/.hunspell_personal")
+;; (use-package lsp-ltex
+;;   :ensure t
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'lsp-ltex)
+;;                        (lsp)))  ; or lsp-deferred
+;;   :init
+;;   (setq lsp-ltex-version "15.2.0"
+;;         lsp-ltex-language "de-DE")) 
+(use-package languagetool
+  :defer t
+  :commands (languagetool-check
+             languagetool-clear-buffer
+             languagetool-server-start
+             languagetool-correct-at-point
+             languagetool-correct-buffer
+             languagetool-set-language)
   :config
-  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
-  ;; dictionary' even though multiple dictionaries will be configured
-  ;; in next line.
-  (setenv "LANG" "en_US")
-  ;; ispell-set-spellchecker-params has to be called
-  ;; before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic ispell-dictionary)
-  (unless (file-exists-p ispell-personal-dictionary)
-    (write-region "" nil ispell-personal-dictionary nil 0)))
-
-;(use-package company
-;:config
-;(add-hook 'after-init-hook 'global-company-mode 'company-dabbrev)
-;(add-to-list 'company-backends 'company-ispell)
-;(setq company-ispell-dictionary ispell-dictionary)
-;)
-#+end_src
+  (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8"
+                                    "-cp" "/usr/share/languagetool:/usr/share/java/languagetool/*")
+      languagetool-console-command "org.languagetool.commandline.Main"
+      languagetool-server-command "org.languagetool.server.HTTPServer"
+      languagetool-default-language "de-DE"
+      languagetool-correction-language "de-DE"))
+        #+end_src
 
 * mu4e
 Manage mail comortably in emacs. Includes: 
@@ -1612,6 +1625,8 @@ Setup auctex to work together with pdftools, lsp, company, and yasnippets. Xenop
 (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'pdf-view-mode-hook ( lambda() (company-mode -1)))
+(setq TeX-source-correlate-method 'synctex)
+(setq TeX-source-correlate-start-server t)
 
 (setq org-latex-toc-command "\\tableofcontents \\clearpage")
 (setq org-latex-pdf-process
@@ -1712,6 +1727,10 @@ Setup auctex to work together with pdftools, lsp, company, and yasnippets. Xenop
                                   ("\\chapter{%s}" . "\\chapter*{%s}")
                                   ("\\section{%s}" . "\\section*{%s}")
                                   ("\\subsection{%s}" . "\\subsection*{%s}")))
+
+(setq org-latex-inputenc-alist '(("utf8" . "utf8x")))
+(add-hook 'LaTeX-mode-hook #'reftex-mode)
+(add-hook 'latex-mode-hook #'reftex-mode)
 #+end_src
 
 * Matlab
